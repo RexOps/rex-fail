@@ -10,8 +10,6 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-use lib "lib";
-
 use Rex -base;
 use IPC::Lite qw($i_am_failed);
 use Rex::CLI;
@@ -60,8 +58,12 @@ sub fail(&) {
     }
   };
 
-  Rex::TaskList->create()
-      ->modify( 'after_task_finished', qr{.*}, $task_code, "Rex::CLI",  );
+  my @all_tasks = Rex::TaskList->create()->get_tasks;
+
+  for my $task (@all_tasks) {
+    my $task_o = Rex::TaskList->create()->get_task($task);
+    $task_o->modify( 'after_task_finished', $task_code, );
+  }
 
   $code->();
 
