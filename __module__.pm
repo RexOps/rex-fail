@@ -41,10 +41,9 @@ sub fail(&) {
   $i_am_failed = 0;
 
   my $task_code = sub {
-  print "fail: task_code\n";
     my @exit_codes = Rex::TaskList->create()->get_exit_codes();
     my @failed_tasks = grep { $_ > 0 } @exit_codes;
-print Dumper(\@exit_codes);
+
 
     if(scalar @failed_tasks > $max_fail_counter) {
       for my $fail_c (@fail_code) {
