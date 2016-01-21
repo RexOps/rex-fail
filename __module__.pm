@@ -93,13 +93,13 @@ sub on_fail(&) {
 
 =head1 NAME
 
-Rex::Ext::Fail - Fail execution if a defined number of tasks fail.
+Fail - Fail execution if a defined number of tasks fail.
 
 If you need to run one or more tasks on many servers and you want to stop the execution if a task fails on a specific number of systems, this module is for you.
 
 =head1 SYNOPSIS
 
- use Rex::Ext::Fail;
+ use Fail;
   
  group servers => "frontend-[01..05]";
     
