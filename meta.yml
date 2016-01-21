@@ -1,6 +1,6 @@
 Name: Fail
 Description: Fail execution if a defined number of tasks fail.
-Author: jan gehring <jan.gehring@gmail.com>
+Author: FILIADATA GmbH
 License: Apache 2.0
 PerlRequire:
   - Parallel::ForkManager
