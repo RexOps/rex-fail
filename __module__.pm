@@ -31,8 +31,33 @@ my @fail_code = ();
 Rex::CLI->add_exit(
   sub {
     if ($i_am_failed) {
-      CORE::exit $i_am_failed;
+      Rex::Logger::info("Exiting by order of fail module. ($i_am_failed)");
+      my $path = tied($i_am_failed)->path();
+      Rex::Logger::info("Cleaning up $path");
+      $i_am_failed = undef;
+      eval {
+        unlink $path;
+        Rex::Logger::info("Cleaning up done.");
+        1;
+        }
+        or do {
+        Rex::Logger::info( "Failed cleaning up: $@", "warn" );
+        };
+
+      CORE::exit 1;
     }
+
+    my $path = tied($i_am_failed)->path();
+    Rex::Logger::info("Cleaning up $path");
+    $i_am_failed = undef;
+    eval {
+      unlink $path;
+      Rex::Logger::info("Cleaning up done.");
+      1;
+      }
+      or do {
+      Rex::Logger::info( "Failed cleaning up: $@", "warn" );
+      };
   }
 );
 
