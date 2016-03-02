@@ -10,9 +10,14 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-use Rex -base;
-use IPC::Lite qw($i_am_failed);
-use Rex::CLI;
+BEGIN {
+  use Rex -base;
+  use Cwd 'getcwd';
+  my $cwd = getcwd();
+  $cwd =~ s/\//_/g;
+  use IPC::Lite Key => 'rex_ipc_lite_', qw($i_am_failed);
+  use Rex::CLI;
+}
 
 $Rex::TaskList::task_list = undef;
 Rex::Config->set_distributor('Parallel_ForkManager');
