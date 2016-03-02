@@ -15,7 +15,8 @@ BEGIN {
   use Cwd 'getcwd';
   my $cwd = getcwd();
   $cwd =~ s/\//_/g;
-  use IPC::Lite Key => "rex_ipc_lite_$cwd", qw($i_am_failed);
+  require IPC::Lite;
+  IPC::Lite->import(Key => "rex_ipc_lite_x_$cwd", qw($i_am_failed));
   use Rex::CLI;
 }
 
